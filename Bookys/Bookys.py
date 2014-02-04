@@ -222,13 +222,10 @@ class Bookys(Indexer):
         else:
             return (False, {}, "Gather passkey failed ! (Parse link error)")
 
-        # Call the javascript function to fill fields.
-        dataWrapper = {'callFunction': 
-                        'bookys_' + self.instance + '_spreadFields',
-                        'functionData': data
-                        }
-
-        return (True, dataWrapper, 'Passkey loaded.')
+        self.hc.passkey = data["Passkey"]
+        self.hc.userId = useId
+        self.hc.cryptedPassword = cryptedPassword
+        return (True, {}, 'Passkey loaded.')
 
     def getConfigHtml(self):
         return """<script>
